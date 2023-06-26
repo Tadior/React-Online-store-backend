@@ -9,6 +9,9 @@ import { ConfigModule } from '@nestjs/config';
 import * as process from 'process';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
+import { UserEntity } from './users/entity/user.entity';
+import { AuthEntity } from './auth/entity/auth.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,9 +23,10 @@ import { UsersModule } from './users/users.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Goods],
+      entities: [Goods, UserEntity, AuthEntity],
       synchronize: true,
     }),
+    AuthModule,
     GoodsModule,
     UsersModule,
   ],
